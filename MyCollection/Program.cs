@@ -1,33 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyCollection
+namespace MyCollection.Collections
 {
     class Program
     {
         static void Main(string[] args)
         {
-            var col = new Collection<string, string, string>();
+            var col = new MyDictionary<MyKey, string>();
 
-            col.Add("1", "Дмитрий", "Студент");
-            col.Add("2", "Александр", "Студент");
-            col.Add("3", "Артем", "Студент");
-            col.Add("4", "Данил", "Преподаватель");
-            ShowMap(col, "Cleared map");
+            col.Edit(MyKey.Set(1, "Дмитрий"), "Студент");
+          //  col.Edit(MyKey.Set(1), "Студент");
+            col.Edit(MyKey.Set(1, "Дмитрий"), "Студент");
+            col.Edit(MyKey.Set(1), "Студент");
+            col.Edit(MyKey.Set(1, "Дмитрий"), "Студент");
+
+
+            ShowMap(col);
             Console.ReadLine();
         }
 
-        private static void ShowMap(Collection<string, string, string> col, string title)
+        private static void ShowMap(MyDictionary<MyKey, string> col)
         {
-            Console.WriteLine($"{title}: ");
-            foreach (var keyId in col.KeysId)
+            foreach (KeyValuePair<MyKey, string> item in col)
             {
-                // Получаем значение словаря по ключу.
-                var value = col.GetById(keyId);
-                Console.WriteLine($"{keyId} - {value}");
+                Console.WriteLine($"{item.Key.Id} - {item.Key.Name} - {item.Value}");
             }
             Console.WriteLine();
         }
